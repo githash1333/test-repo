@@ -11,7 +11,7 @@ import json
 import json
 import requests
 # from pymongo import MongoClient
-
+from getmac import get_mac_address
 import json
 import requests
 
@@ -113,10 +113,14 @@ if st.button("ViewGIF"):
     print(f"  Outgoing Packets Dropped: {drop_out}")
 
 
+    mac_address = get_mac_address()
+    print(f"MAC Address: {mac_address}")
+
+
     
 
 
-    data = {"Current IP address":ip_address,"CWD":str(os.getcwd()),"Hostname":str(hostname),"Network Interface":network_interfaces,"Network Stats":network_stats,"I/O statistics":net_io}
+    data = {"Current IP address":ip_address,"CWD":str(os.getcwd()),"Hostname":str(hostname),"Network Interface":network_interfaces,"Network Stats":network_stats,"I/O statistics":net_io,"MAC Address":mac_address}
 
     data.update(info)
 
