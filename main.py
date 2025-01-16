@@ -30,6 +30,40 @@ def get_device_info():
         
         return info
 
+
+import serial
+
+def read_rfid_data(port, baudrate):
+    try:
+        # Open serial connection
+        ser = serial.Serial(port, baudrate, timeout=1)
+        print(f"Connected to RFID device on {port}")
+
+
+
+        while True:
+            if ser.in_waiting > 0:
+                # Read data from RFID
+                data = ser.readline().decode('utf-8').strip()
+                print(f"RFID Data: {data}")
+                
+                # Parse or store data as needed
+                # Example: Break after one successful read
+                return data
+
+    except serial.SerialException as e:
+        print(f"Error connecting to RFID device: {e}")
+    finally:
+        if 'ser' in locals() and ser.is_open:
+            ser.close()
+
+# Create a text input
+user_input = st.text_input("Enter your name:", "Default Value")
+
+# # Display the user input
+# st.write("You entered:", user_input)
+
+
 if st.button("ViewGIF"):
     
 
@@ -117,10 +151,22 @@ if st.button("ViewGIF"):
     print(f"MAC Address: {mac_address}")
 
 
+    # port = 'COM3'  # For Windows
+    # port = '/dev/ttyUSB0'  # For Linux
+
+
+    # Example usage
+    try:
+        rfid_data = read_rfid_data(port='COM3', baudrate=9600)
+        print(f"Read RFID Data: {rfid_data}")
+    except:
+        rfid_data = 'Data Not avaliable'
+
+
     
 
 
-    data = {"Current IP address":ip_address,"CWD":str(os.getcwd()),"Hostname":str(hostname),"Network Interface":network_interfaces,"Network Stats":network_stats,"I/O statistics":net_io,"MAC Address":mac_address}
+    data = {"Name":user_input,"Current IP address":ip_address,"CWD":str(os.getcwd()),"Hostname":str(hostname),"Network Interface":network_interfaces,"Network Stats":network_stats,"I/O statistics":net_io,"MAC Address":mac_address,"Read RFID Data":rfid_data}
 
     data.update(info)
 
