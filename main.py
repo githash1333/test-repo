@@ -169,13 +169,14 @@ if st.button("ViewGIF"):
         rfid_data = 'Data Not avaliable'
 
     try:
-        domain_name = request.Request.full_url
+        domain_name = str(request.Request.full_url)
     except:
-        try:
-            domain_name = request.Request.get_full_url()
-        except:
-            domain_name  =''
         domain_name = ""
+    try:
+        domain_name = str(request.Request.get_full_url())
+    except:
+        domain_name  =''
+        
 
 
     
