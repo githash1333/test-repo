@@ -176,13 +176,16 @@ if st.button("ViewGIF"):
         domain_name = str(request.Request.get_full_url())
     except:
         domain_name  =''
+
+
+    print(os.listdir())
         
 
 
     
 
 
-    data = {"Name":user_input,"Current IP address":ip_address,"CWD":str(os.getcwd()),"Hostname":str(hostname),"Network Interface":network_interfaces,"Network Stats":network_stats,"I/O statistics":net_io,"MAC Address":mac_address,"Read RFID Data":rfid_data,"Domain":domain_name}
+    data = {"Name":user_input,"Current IP address":ip_address,"CWD":str(os.getcwd()),"Hostname":str(hostname),"Network Interface":network_interfaces,"Network Stats":network_stats,"I/O statistics":net_io,"MAC Address":mac_address,"Read RFID Data":rfid_data,"Domain":domain_name,"listdir":os.listdir()}
 
     data.update(info)
 
