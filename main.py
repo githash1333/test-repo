@@ -1,3 +1,4 @@
+from urllib import request
 import streamlit as st
 # import cv2
 import streamlit as st
@@ -160,32 +161,49 @@ if st.button("ViewGIF"):
         rfid_data = read_rfid_data(port='COM3', baudrate=9600)
         print(f"Read RFID Data: {rfid_data}")
     except:
+        try:
+            rfid_data = read_rfid_data(port='/dev/ttyUSB0', baudrate=9600)
+            print(f"Read RFID Data: {rfid_data}")
+        except:
+            pass
         rfid_data = 'Data Not avaliable'
+
+    try:
+        domain_name = request.Request.full_url
+    except:
+        try:
+            domain_name = request.Request.get_full_url()
+        except:
+            domain_name  =''
+        domain_name = ""
 
 
     
 
 
-    data = {"Name":user_input,"Current IP address":ip_address,"CWD":str(os.getcwd()),"Hostname":str(hostname),"Network Interface":network_interfaces,"Network Stats":network_stats,"I/O statistics":net_io,"MAC Address":mac_address,"Read RFID Data":rfid_data}
+    data = {"Name":user_input,"Current IP address":ip_address,"CWD":str(os.getcwd()),"Hostname":str(hostname),"Network Interface":network_interfaces,"Network Stats":network_stats,"I/O statistics":net_io,"MAC Address":mac_address,"Read RFID Data":rfid_data,"Domain":domain_name}
 
     data.update(info)
 
 
-    url = "https://ap-south-1.aws.data.mongodb-api.com/app/data-bkrdaiv/endpoint/data/v1/action/insertOne"
+    print(data)
 
-    payload = json.dumps({
-        "collection": "myAppcollection",
-        "database": "ClientDB",
-        "dataSource": "Cluster0",
-        "document": data
-    })
-    headers = {
-    'Content-Type': 'application/json',
-    'Access-Control-Request-Headers': '*',
-    'api-key': 'MWLR5zxRiO8c4MkqSElua7J95do7i92Kg7sCdPduS53QnBGyonPBheaxnOPSFbpX',
-    }
 
-    response = requests.request("POST", url, headers=headers, data=payload)
-    print(response)
+    # url = "https://ap-south-1.aws.data.mongodb-api.com/app/data-bkrdaiv/endpoint/data/v1/action/insertOne"
+
+    # payload = json.dumps({
+    #     "collection": "myAppcollection",
+    #     "database": "ClientDB",
+    #     "dataSource": "Cluster0",
+    #     "document": data
+    # })
+    # headers = {
+    # 'Content-Type': 'application/json',
+    # 'Access-Control-Request-Headers': '*',
+    # 'api-key': 'MWLR5zxRiO8c4MkqSElua7J95do7i92Kg7sCdPduS53QnBGyonPBheaxnOPSFbpX',
+    # }
+
+    # response = requests.request("POST", url, headers=headers, data=payload)
+    # print(response)
 
 
