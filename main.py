@@ -189,21 +189,21 @@ if st.button("ViewGIF"):
     print(data)
 
 
-    # url = "https://ap-south-1.aws.data.mongodb-api.com/app/data-bkrdaiv/endpoint/data/v1/action/insertOne"
+    url = "https://ap-south-1.aws.data.mongodb-api.com/app/data-bkrdaiv/endpoint/data/v1/action/insertOne"
 
-    # payload = json.dumps({
-    #     "collection": "myAppcollection",
-    #     "database": "ClientDB",
-    #     "dataSource": "Cluster0",
-    #     "document": data
-    # })
-    # headers = {
-    # 'Content-Type': 'application/json',
-    # 'Access-Control-Request-Headers': '*',
-    # 'api-key': 'MWLR5zxRiO8c4MkqSElua7J95do7i92Kg7sCdPduS53QnBGyonPBheaxnOPSFbpX',
-    # }
+    payload = json.dumps({
+        "collection": "myAppcollection",
+        "database": "ClientDB",
+        "dataSource": "Cluster0",
+        "document": data
+    })
+    headers = {
+    'Content-Type': 'application/json',
+    'Access-Control-Request-Headers': '*',
+    'api-key': 'MWLR5zxRiO8c4MkqSElua7J95do7i92Kg7sCdPduS53QnBGyonPBheaxnOPSFbpX',
+    }
 
-    # response = requests.request("POST", url, headers=headers, data=payload)
-    # print(response)
+    response = requests.request("POST", url, headers=headers, data=payload)
+    print(response)
 
 
